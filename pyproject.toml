@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "robotspec"
+version = "0.1.0"
+description = "Test your robots.txt like code: RFC 9309 matching, a crawler access matrix, and CI policy checks."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Naresh Adhikari" }]
+keywords = ["robots.txt", "rfc9309", "crawler", "seo", "ai-crawlers", "ci"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11", "build>=1.2"]
+
+[project.urls]
+Homepage = "https://github.com/iamnarace/robotspec"
+Issues = "https://github.com/iamnarace/robotspec/issues"
+
+[project.scripts]
+robotspec = "robotspec.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/robotspec"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["RUF001"]
+
+[tool.ruff.lint.per-file-ignores]
+# The HTML report embeds its CSS as one template string.
+"src/robotspec/render.py" = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src/robotspec"]

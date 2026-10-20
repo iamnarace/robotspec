@@ -1,0 +1,35 @@
+name: Bug report
+description: robotspec gave a wrong verdict, crashed, or printed something confusing
+labels: [bug]
+body:
+  - type: textarea
+    id: robots
+    attributes:
+      label: robots.txt (or a minimal excerpt)
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command you ran
+      placeholder: robotspec check robots.txt -b GPTBot -p /blog/
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and why
+      description: If this is about a crawler's real behaviour, please link to where it is documented.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What robotspec printed
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: robotspec and Python versions
+      placeholder: robotspec 0.1.0, Python 3.12

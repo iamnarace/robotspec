@@ -1,0 +1,29 @@
+name: Crawler catalogue update
+description: Add, correct or remove a crawler in the catalogue
+labels: [catalogue]
+body:
+  - type: input
+    id: token
+    attributes:
+      label: User-agent token
+      placeholder: ExampleBot
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [search, ai-training, ai-search, ai-user, social]
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Link to the operator's own documentation
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Fallback tokens, whether the operator says it follows robots.txt, anything else relevant.

@@ -1,0 +1,31 @@
+# Example robots.txt for a small publishing site.
+# Search engines may index the site, AI training crawlers may not,
+# and AI search tools may read the blog but not the members area.
+#
+# This version has a classic bug: the AI-search group does not inherit the
+# rules in the '*' group, so those crawlers are allowed into /cart.
+# `robotspec test -c examples/robotspec.toml --robots examples/robots-before.txt`
+# catches it. See robots.txt for the fixed file.
+
+User-agent: *
+Disallow: /admin/
+Disallow: /cart
+Disallow: /*?session=
+Allow: /admin/help
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+Allow: /blog/
+Disallow: /members/
+Disallow: /admin/
+
+Sitemap: https://example.com/sitemap.xml

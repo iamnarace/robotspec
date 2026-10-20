@@ -1,0 +1,32 @@
+# Example robots.txt for a small publishing site.
+# Search engines may index the site, AI training crawlers may not,
+# and AI search tools may read the blog but not the members area.
+#
+# Groups do not inherit from '*', so the AI-search group repeats the
+# shared rules it needs.
+
+User-agent: *
+Disallow: /admin/
+Disallow: /cart
+Disallow: /*?session=
+Allow: /admin/help
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: meta-webindexer
+Allow: /blog/
+Disallow: /members/
+Disallow: /admin/
+Disallow: /cart
+Disallow: /*?session=
+
+Sitemap: https://example.com/sitemap.xml

@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Type-check
+        run: mypy
+      - name: Test
+        run: pytest
+      - name: Build sdist and wheel
+        run: python -m build
+      - name: Dogfood the example policy
+        run: |
+          robotspec test -c examples/robotspec.toml
+          # The "before" file contains a known bug and must fail.
+          if robotspec test -c examples/robotspec.toml --robots examples/robots-before.txt --no-summary; then
+            echo "expected the buggy example to fail" && exit 1
+          fi

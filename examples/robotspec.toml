@@ -1,0 +1,35 @@
+# Policy for examples/robots.txt. Run: robotspec test -c examples/robotspec.toml
+robots = "robots.txt"
+
+[[expect]]
+name = "AI training crawlers are kept out of everything"
+bots = ["category:ai-training"]
+paths = ["/", "/blog/launch-notes", "/members/"]
+access = "deny"
+
+[[expect]]
+name = "Search engines can index public pages"
+bots = ["Googlebot", "bingbot", "Applebot", "DuckDuckBot"]
+paths = ["/", "/blog/launch-notes", "/admin/help"]
+access = "allow"
+
+[[expect]]
+name = "Nobody is invited into admin or cart"
+bots = ["category:search", "category:ai-search"]
+paths = ["/admin/settings", "/cart"]
+access = "deny"
+
+[[expect]]
+name = "AI search can read the blog but not members' pages"
+bots = ["category:ai-search"]
+paths = ["/blog/launch-notes"]
+access = "allow"
+
+[[expect]]
+bots = ["category:ai-search"]
+paths = ["/members/profile"]
+access = "deny"
+
+[require]
+sitemap = true
+no_lint_errors = true
