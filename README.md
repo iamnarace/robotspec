@@ -1,5 +1,7 @@
 # robotspec
 
+[![CI](https://github.com/iamnarace/robotspec/actions/workflows/ci.yml/badge.svg)](https://github.com/iamnarace/robotspec/actions/workflows/ci.yml)
+
 **Test your robots.txt like code.** robotspec evaluates a `robots.txt` with [RFC 9309](https://datatracker.ietf.org/doc/rfc9309/) matching rules, shows which crawlers (search engines, AI training bots, AI search and assistant fetchers) can reach which paths, explains every decision down to the line, and fails your CI build when an edit changes who can crawl what.
 
 ![robotspec test catching a robots.txt regression, then passing after the fix](docs/screenshots/terminal-test.png)
